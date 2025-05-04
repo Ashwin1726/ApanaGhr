@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RoomSync</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+    
+    :root {
+      --glass-bg: rgba(255, 255, 255, 0.15);
+      --glass-border: rgba(255, 255, 255, 0.18);
+    }
+    
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                  url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=80')
+                  no-repeat center center fixed;
+      background-size: cover;
+      min-height: 100vh;
+      color: #ffffff;
+    }
+    
+    .glass {
+      background: var(--glass-bg);
+      border-radius: 1.5rem;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+      border: 1px solid var(--glass-border);
+      transition: all 0.3s ease;
+    }
+    
+    .glass:hover {
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.25);
+    }
+    
+    .progress-bar {
+      height: 8px;
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.2);
+      overflow: hidden;
+    }
+    
+select option {
+  color: #111827; 
+  background-color: #f9fafb; 
+}
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #4f46e5, #8b5cf6);
+      transition: width 0.5s ease;
+    }
+    
+    .match-card {
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      backface-visibility: hidden;
+    }
+    
+    .match-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.2);
+    }
+    
+    .tooltip {
+      position: relative;
+    }
+    
+    .tooltip-text {
+      visibility: hidden;
+      width: 200px;
+      background-color: #1e293b;
+      color: #fff;
+      text-align: center;
+      border-radius: 6px;
+      padding: 8px;
+      position: absolute;
+      z-index: 1;
+      bottom: 125%;
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    
+    .tooltip:hover .tooltip-text {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .animate-fade-in {
+      animation: fadeIn 0.5s ease-out forwards;
+    }
+    
+    .spinner {
+      width: 24px;
+      height: 24px;
+      border: 3px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top-color: #fff;
+      animation: spin 1s ease-in-out infinite;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body class="min-h-screen flex items-center justify-center px-4 py-10 font-sans">
+  <div class="glass w-full max-w-4xl p-10 text-white">
+    <div class="text-center mb-10">
+      <img src="https://img.icons8.com/ios-filled/100/ffffff/room.png" alt="icon" class="mx-auto h-16 animate-pulse">
+      <h1 class="text-4xl font-extrabold mt-4 tracking-tight">RoomSync</h1>
+      <p class="text-lg text-gray-200 mt-2">Discover your best match based on lifestyle and preferences</p>
+    </div>
+
+    <form method="POST" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div>
+        <label class="block font-medium mb-2 text-white" for="sleep_time">Sleep Time</label>
+        <select id="sleep_time" name="sleep_time" required class="w-full p-3 rounded-lg text-gray-800 bg-white/90 focus:ring-2 focus:ring-indigo-400 shadow">
+          <option value="" disabled selected>Select your preference</option>
+          <option>Early</option>
+          <option>Normal</option>
+          <option>Late</option>
+        </select>
+      </div>
+
+      <div>
+        <label class="block font-medium mb-2 text-white" for="cleanliness">Cleanliness</label>
+        <select id="cleanliness" name="cleanliness" required class="w-full p-3 rounded-lg text-gray-800 bg-white/90 focus:ring-2 focus:ring-indigo-400 shadow">
+          <option value="" disabled selected>Select your preference</option>
+          <option>Messy</option>
+          <option>Moderate</option>
+          <option>Clean</option>
+        </select>
+      </div>
+
+      <div>
+        <label class="block font-medium mb-2 text-white" for="work_schedule">Work Schedule</label>
+        <select id="work_schedule" name="work_schedule" required class="w-full p-3 rounded-lg text-gray-800 bg-white/90 focus:ring-2 focus:ring-indigo-400 shadow">
+          <option value="" disabled selected>Select your preference</option>
+          <option>Day</option>
+          <option>Night</option>
+          <option>Flexible</option>
+        </select>
+      </div>
+
+      <div>
+        <label class="block font-medium mb-2 text-white" for="food_habits">Food Habits</label>
+        <select id="food_habits" name="food_habits" required class="w-full p-3 rounded-lg text-gray-800 bg-white/90 focus:ring-2 focus:ring-indigo-400 shadow">
+          <option value="" disabled selected>Select your preference</option>
+          <option>Vegetarian</option>
+          <option>Non-Vegetarian</option>
+          <option>Vegan</option>
+          <option>Mixed</option>
+        </select>
+      </div>
+
+      <div class="md:col-span-2 text-center">
+        <button type="submit" class="mt-6 inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 transition-all duration-300 text-white px-6 py-3 rounded-xl shadow-lg focus:outline-none focus:ring-2 focus:ring-indigo-400">
+          <i class="fas fa-magic"></i>
+          <span>Find Matches</span>
+        </button>
+      </div>
+    </form>
+
+    {% if results %}
+    <div class="mt-12">
+      <h2 class="text-2xl font-bold text-white mb-6 text-center">Top Compatible Roommates</h2>
+      <div class="grid sm:grid-cols-1 md:grid-cols-2 gap-6">
+        {% for name, score in results %}
+        <div class="flex items-center p-4 bg-white/80 rounded-xl shadow-md text-gray-800 hover:shadow-lg transition hover:scale-[1.02]">
+          <img src="https://api.dicebear.com/7.x/adventurer/svg?seed={{ name }}" alt="{{ name }}" class="w-14 h-14 rounded-full border-2 border-indigo-500 mr-4">
+          <div>
+            <p class="text-lg font-semibold">{{ name }}</p>
+            <p class="text-sm text-gray-600">Compatibility Score: <strong>{{ score }}/100</strong></p>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</body>
+</html>

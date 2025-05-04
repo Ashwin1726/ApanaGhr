@@ -45,7 +45,7 @@ RoommateMatch Pro is a simple and smart web app that helps people find ideal roo
 
 
 
-![<video controls src="static/apana .mp4" title="Title"></video>](static/apan.gif)
+![<video controls src="static/apana .mp4" title="Title"></video>](static/Untitled design.gif)
 
 
 

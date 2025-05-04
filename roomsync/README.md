@@ -2,9 +2,8 @@
 ![alt text](static/apana.gif)
 
 
-# 🏡 RoommateMatch Pro
-
-RoommateMatch Pro is a simple and smart web app that helps people find ideal roommates based on lifestyle compatibility. It was developed as part of the **ApanaGhr Internship Mini Project**.
+# 🏡 Roomsync
+Roomsync Pro is a simple and smart web app that helps people find ideal roommates based on lifestyle compatibility. It was developed as part of the **ApanaGhr Internship Mini Project**.
 
 ---
 

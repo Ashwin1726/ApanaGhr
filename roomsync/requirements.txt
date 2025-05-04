@@ -1,3 +1,0 @@
-Flaskflask
-gunicorn
-requests

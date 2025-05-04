@@ -34,16 +34,16 @@ RoommateMatch Pro is a simple and smart web app that helps people find ideal roo
 3. open **Terminal** and Enter python app.py .
 4. click **http://127.0.0.1:5000** .
 
-![alt text](img1.png)
+![alt text](static/img1.png)
 
 4. It will open into the web browser . 
 3. Fill out the form and click **Find Matches**
 
-![alt text](img2.png)
+![alt text](static/img2.png)
 
 4. View your top roommate matches with scores
 
-![alt text](img3.png)
+![alt text](static/img3.png)
 
 
 
